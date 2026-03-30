@@ -3,87 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>古事記かんたんガイド</title>
+  <title>晩ごはんガチャ | DINNER IMPACT</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="hero__inner">
-      <p class="eyebrow">やさしくわかる日本神話</p>
-      <h1>古事記の流れをざっくり理解</h1>
-      <p class="lead">
-        『古事記（こじき）』の大きな流れを、<br />
-        スマホでも読みやすい形で短くまとめました。
-      </p>
-      <a href="#timeline" class="cta">流れを見る</a>
-    </div>
-  </header>
+  <div class="bg-glow bg-glow--one"></div>
+  <div class="bg-glow bg-glow--two"></div>
 
-  <main>
-    <section id="timeline" class="section">
-      <h2>古事記の3つの章</h2>
-      <p class="section__desc">タップで各章のポイントを開けます。</p>
+  <main class="app">
+    <header class="hero">
+      <p class="eyebrow">TONIGHT'S DESTINY</p>
+      <h1>晩ごはんガチャ</h1>
+      <p class="lead">ボタンひとつで、今夜のメニューを運命決定。</p>
+    </header>
 
-      <div class="timeline">
-        <article class="card is-open">
-          <button class="card__header" aria-expanded="true">
-            <span class="card__index">1</span>
-            <span class="card__title">上巻：神々のはじまり</span>
-            <span class="card__icon" aria-hidden="true">＋</span>
-          </button>
-          <div class="card__body">
-            <ul>
-              <li>天地が分かれ、最初の神々があらわれる。</li>
-              <li>イザナギとイザナミが国生み・神生みを進める。</li>
-              <li>アマテラス、スサノオなど主要な神々が登場。</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="card">
-          <button class="card__header" aria-expanded="false">
-            <span class="card__index">2</span>
-            <span class="card__title">中巻：初代天皇からの系譜</span>
-            <span class="card__icon" aria-hidden="true">＋</span>
-          </button>
-          <div class="card__body" hidden>
-            <ul>
-              <li>神武天皇の東征と即位の物語。</li>
-              <li>天皇ごとのエピソードを通じて王権の正統性を語る。</li>
-              <li>神話から歴史へ橋渡しする内容が中心。</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="card">
-          <button class="card__header" aria-expanded="false">
-            <span class="card__index">3</span>
-            <span class="card__title">下巻：王権の物語の広がり</span>
-            <span class="card__icon" aria-hidden="true">＋</span>
-          </button>
-          <div class="card__body" hidden>
-            <ul>
-              <li>応神天皇以降の天皇たちの伝承が続く。</li>
-              <li>戦い・恋・歌など、人間味ある話が増える。</li>
-              <li>王家の歴史を物語としてまとめている。</li>
-            </ul>
-          </div>
-        </article>
-      </div>
+    <section class="gacha-panel" aria-label="ガチャ結果">
+      <p class="label">RESULT</p>
+      <div id="result" class="result" aria-live="polite">スタートを押してね</div>
+      <p id="subResult" class="sub-result">迷った時間を、食べる時間に変えよう。</p>
+      <button id="spinButton" class="spin-button" type="button">ガチャを引く</button>
     </section>
 
-    <section class="section summary">
-      <h2>ひとことで言うと？</h2>
-      <p>
-        古事記は、<strong>「神々の時代」から「天皇の時代」へ続く物語</strong>を通して、
-        日本のはじまりと王権の由来を伝える書物です。
-      </p>
+    <section class="list-panel" aria-label="候補メニュー">
+      <div class="list-header">
+        <h2>候補メニュー</h2>
+        <button id="resetButton" class="ghost" type="button">初期メニューに戻す</button>
+      </div>
+      <p class="list-note">追加した候補もガチャ対象になります。</p>
+
+      <form id="dishForm" class="dish-form">
+        <input id="dishInput" type="text" maxlength="20" placeholder="例: チキン南蛮" aria-label="メニュー名" />
+        <button type="submit" class="ghost">追加</button>
+      </form>
+
+      <ul id="dishList" class="dish-list"></ul>
     </section>
   </main>
-
-  <footer class="footer">
-    <small>※ 学習用のかんたん要約サイトです。</small>
-  </footer>
 
   <script src="script.js"></script>
 </body>
