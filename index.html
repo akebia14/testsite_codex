@@ -46,6 +46,34 @@
     <div id="whiteout" class="whiteout"></div>
   </div>
 
+  <div id="resultPopup" class="result-popup" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="popupRank">
+    <div class="result-popup__backdrop"></div>
+    <div class="result-popup__card">
+      <button id="popupClose" class="result-popup__close" type="button" aria-label="結果ポップアップを閉じる">×</button>
+      <p class="result-popup__label">RESULT POPUP</p>
+      <dl class="result-popup__grid">
+        <div>
+          <dt>ランク</dt>
+          <dd id="popupRank">-</dd>
+        </div>
+        <div>
+          <dt>名前</dt>
+          <dd id="popupDish">-</dd>
+        </div>
+        <div>
+          <dt>画像(仮置き)</dt>
+          <dd>
+            <div id="popupImage" class="result-popup__image" aria-hidden="true"></div>
+          </dd>
+        </div>
+        <div>
+          <dt>コメント</dt>
+          <dd id="popupComment">-</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

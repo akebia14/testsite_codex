@@ -48,6 +48,12 @@ const resetButton = document.getElementById('resetButton');
 const stageEl = document.getElementById('stage');
 const orbEl = document.getElementById('orb');
 const whiteoutEl = document.getElementById('whiteout');
+const resultPopupEl = document.getElementById('resultPopup');
+const popupCloseEl = document.getElementById('popupClose');
+const popupRankEl = document.getElementById('popupRank');
+const popupDishEl = document.getElementById('popupDish');
+const popupCommentEl = document.getElementById('popupComment');
+const popupImageEl = document.getElementById('popupImage');
 
 let dishes = [...DEFAULT_DISHES];
 
@@ -76,9 +82,23 @@ function resetResultStyles() {
 }
 
 function resetEffects() {
-  stageEl.classList.remove('is-active', 'is-shaking');
-  orbEl.classList.remove('is-active', 'is-power', 'orb--blue', 'orb--silver', 'orb--gold', 'orb--rainbow');
+  stageEl.classList.remove('is-active');
+  orbEl.classList.remove('is-active', 'is-power', 'is-chaos', 'orb--blue', 'orb--silver', 'orb--gold', 'orb--rainbow');
   whiteoutEl.classList.remove('is-flash');
+}
+
+function closePopup() {
+  resultPopupEl.classList.remove('is-open');
+  resultPopupEl.setAttribute('aria-hidden', 'true');
+}
+
+function openPopup(rank, dish) {
+  popupRankEl.textContent = rank.title;
+  popupDishEl.textContent = dish;
+  popupCommentEl.textContent = rank.message;
+  popupImageEl.className = `result-popup__image ${rank.key}`;
+  resultPopupEl.classList.add('is-open');
+  resultPopupEl.setAttribute('aria-hidden', 'false');
 }
 
 function spin() {
@@ -105,8 +125,8 @@ function spin() {
   setTimeout(() => {
     orbEl.classList.add('is-power');
 
-    if (rank.key !== 'blue') {
-      stageEl.classList.add('is-shaking');
+    if (rank.key === 'gold' || rank.key === 'rainbow') {
+      orbEl.classList.add('is-chaos');
     }
   }, 1080);
 
@@ -119,6 +139,7 @@ function spin() {
     resultEl.classList.add(`rank-${rank.key}`);
     resultEl.textContent = `${rank.title} - 🍽 ${finalDish}`;
     subResultEl.textContent = `${rank.message}（演出確率は4種すべて1/4）`;
+    openPopup(rank, finalDish);
     spinButton.disabled = false;
     resetEffects();
   }, 3400);
@@ -154,6 +175,14 @@ resetButton.addEventListener('click', () => {
   dishes = [...DEFAULT_DISHES];
   renderDishes();
   subResultEl.textContent = '候補を初期状態に戻しました。';
+});
+
+popupCloseEl.addEventListener('click', closePopup);
+
+resultPopupEl.addEventListener('click', (event) => {
+  if (event.target === resultPopupEl || event.target.classList.contains('result-popup__backdrop')) {
+    closePopup();
+  }
 });
 
 renderDishes();
