@@ -11,6 +11,33 @@ const DEFAULT_DISHES = [
   'パスタ'
 ];
 
+const RANKS = [
+  {
+    key: 'blue',
+    orbClass: 'orb--blue',
+    title: 'BLUE RANK',
+    message: '通常演出。まずはここから。'
+  },
+  {
+    key: 'silver',
+    orbClass: 'orb--silver',
+    title: 'SILVER RANK',
+    message: '銀の輝き。ちょっと期待感アップ。'
+  },
+  {
+    key: 'gold',
+    orbClass: 'orb--gold',
+    title: 'GOLD RANK',
+    message: '金の閃光。熱い展開が来た。'
+  },
+  {
+    key: 'rainbow',
+    orbClass: 'orb--rainbow',
+    title: 'RAINBOW RANK',
+    message: '虹演出炸裂！今日は主役級。'
+  }
+];
+
 const resultEl = document.getElementById('result');
 const subResultEl = document.getElementById('subResult');
 const spinButton = document.getElementById('spinButton');
@@ -18,6 +45,9 @@ const dishListEl = document.getElementById('dishList');
 const dishForm = document.getElementById('dishForm');
 const dishInput = document.getElementById('dishInput');
 const resetButton = document.getElementById('resetButton');
+const stageEl = document.getElementById('stage');
+const orbEl = document.getElementById('orb');
+const whiteoutEl = document.getElementById('whiteout');
 
 let dishes = [...DEFAULT_DISHES];
 
@@ -36,31 +66,61 @@ function chooseRandomDish() {
   return dishes[index];
 }
 
+function chooseRank() {
+  const index = Math.floor(Math.random() * RANKS.length);
+  return RANKS[index];
+}
+
+function resetResultStyles() {
+  resultEl.classList.remove('rank-blue', 'rank-silver', 'rank-gold', 'rank-rainbow', 'is-spinning');
+}
+
+function resetEffects() {
+  stageEl.classList.remove('is-shaking');
+  orbEl.classList.remove('is-active', 'is-power', 'orb--blue', 'orb--silver', 'orb--gold', 'orb--rainbow');
+  whiteoutEl.classList.remove('is-flash');
+}
+
 function spin() {
   if (dishes.length === 0 || spinButton.disabled) {
     return;
   }
 
   spinButton.disabled = true;
+  resetResultStyles();
+  resetEffects();
+
+  const rank = chooseRank();
+  const finalDish = chooseRandomDish();
+
   resultEl.classList.add('is-spinning');
-  subResultEl.textContent = '運命演算中…';
+  resultEl.textContent = '演出スタンバイ…';
+  subResultEl.textContent = `${rank.title}を判定中…`;
 
-  let tick = 0;
-  const maxTick = 16;
+  setTimeout(() => {
+    orbEl.classList.add(rank.orbClass, 'is-active');
+  }, 140);
 
-  const timer = setInterval(() => {
-    resultEl.textContent = chooseRandomDish();
-    tick += 1;
+  setTimeout(() => {
+    orbEl.classList.add('is-power');
 
-    if (tick >= maxTick) {
-      clearInterval(timer);
-      const finalDish = chooseRandomDish();
-      resultEl.textContent = `🍽 ${finalDish}`;
-      resultEl.classList.remove('is-spinning');
-      subResultEl.textContent = `${finalDish}で決定。最高の一皿にしよう。`;
-      spinButton.disabled = false;
+    if (rank.key !== 'blue') {
+      stageEl.classList.add('is-shaking');
     }
-  }, 85);
+  }, 460);
+
+  setTimeout(() => {
+    whiteoutEl.classList.add('is-flash');
+  }, 880);
+
+  setTimeout(() => {
+    resetResultStyles();
+    resultEl.classList.add(`rank-${rank.key}`);
+    resultEl.textContent = `${rank.title} - 🍽 ${finalDish}`;
+    subResultEl.textContent = `${rank.message}（演出確率は4種すべて1/4）`;
+    spinButton.disabled = false;
+    resetEffects();
+  }, 1180);
 }
 
 function addDish(rawValue) {

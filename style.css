@@ -106,8 +106,100 @@ h1 {
   color: var(--muted);
 }
 
+.stage {
+  position: relative;
+  height: 150px;
+  margin-top: 0.3rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.stage.is-shaking {
+  animation: stage-shake 0.42s linear 2;
+}
+
+@keyframes stage-shake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-8px, 4px) rotate(-1.8deg); }
+  40% { transform: translate(8px, -3px) rotate(1.4deg); }
+  60% { transform: translate(-6px, -2px) rotate(-1.2deg); }
+  80% { transform: translate(6px, 4px) rotate(1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.orb {
+  width: clamp(72px, 18vw, 128px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(18px) scale(0.2);
+  filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  transition: transform 0.45s ease, opacity 0.3s ease, filter 0.35s ease;
+}
+
+.orb.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.orb.is-power {
+  animation: orb-pulse 0.54s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 18px currentColor);
+  }
+
+  100% {
+    transform: translateY(-2px) scale(1.07);
+    filter: drop-shadow(0 0 36px currentColor);
+  }
+}
+
+.orb--blue {
+  color: #6ec7ff;
+  background: radial-gradient(circle at 30% 25%, #dff4ff 0%, #7ec7ff 30%, #2f6fff 65%, #10265b 100%);
+}
+
+.orb--silver {
+  color: #e8f2ff;
+  background: radial-gradient(circle at 32% 22%, #ffffff 0%, #dae7ff 36%, #96abc7 68%, #4a5771 100%);
+}
+
+.orb--gold {
+  color: #ffe59d;
+  background: radial-gradient(circle at 30% 24%, #fff7d8 0%, #ffd86c 34%, #c58a24 66%, #593a00 100%);
+}
+
+.orb--rainbow {
+  color: #fff2ff;
+  background:
+    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.18) 28%, transparent 50%),
+    conic-gradient(from 20deg, #ff6ec4, #ffe45c, #63ffbf, #56c3ff, #a483ff, #ff6ec4);
+}
+
+.whiteout {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  pointer-events: none;
+}
+
+.whiteout.is-flash {
+  animation: white-flash 0.42s ease-out;
+}
+
+@keyframes white-flash {
+  0% { background: rgba(255, 255, 255, 0); }
+  18% { background: rgba(255, 255, 255, 1); }
+  100% { background: rgba(255, 255, 255, 0); }
+}
+
 .result {
-  margin-top: 0.55rem;
+  margin-top: 0.2rem;
   min-height: 3.3rem;
   font-size: clamp(1.55rem, 4.4vw, 2.5rem);
   font-weight: 800;
@@ -115,10 +207,32 @@ h1 {
   display: grid;
   place-items: center;
   padding: 0.4rem;
+  transition: text-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .result.is-spinning {
   animation: flash 0.12s linear infinite;
+}
+
+.result.rank-blue {
+  text-shadow: 0 0 12px rgba(110, 199, 255, 0.85);
+}
+
+.result.rank-silver {
+  text-shadow: 0 0 13px rgba(217, 231, 255, 0.9), 0 0 24px rgba(168, 194, 226, 0.5);
+}
+
+.result.rank-gold {
+  text-shadow: 0 0 13px rgba(255, 226, 140, 0.95), 0 0 32px rgba(255, 190, 70, 0.7);
+}
+
+.result.rank-rainbow {
+  text-shadow:
+    0 0 10px #ff76c7,
+    0 0 16px #ffe978,
+    0 0 22px #70f4ff,
+    0 0 32px #bb9eff;
+  transform: scale(1.05);
 }
 
 @keyframes flash {
