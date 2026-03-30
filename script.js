@@ -76,7 +76,7 @@ function resetResultStyles() {
 }
 
 function resetEffects() {
-  stageEl.classList.remove('is-shaking');
+  stageEl.classList.remove('is-active', 'is-shaking');
   orbEl.classList.remove('is-active', 'is-power', 'orb--blue', 'orb--silver', 'orb--gold', 'orb--rainbow');
   whiteoutEl.classList.remove('is-flash');
 }
@@ -98,8 +98,9 @@ function spin() {
   subResultEl.textContent = `${rank.title}を判定中…`;
 
   setTimeout(() => {
+    stageEl.classList.add('is-active');
     orbEl.classList.add(rank.orbClass, 'is-active');
-  }, 140);
+  }, 240);
 
   setTimeout(() => {
     orbEl.classList.add('is-power');
@@ -107,11 +108,11 @@ function spin() {
     if (rank.key !== 'blue') {
       stageEl.classList.add('is-shaking');
     }
-  }, 460);
+  }, 1080);
 
   setTimeout(() => {
     whiteoutEl.classList.add('is-flash');
-  }, 880);
+  }, 2450);
 
   setTimeout(() => {
     resetResultStyles();
@@ -120,7 +121,7 @@ function spin() {
     subResultEl.textContent = `${rank.message}（演出確率は4種すべて1/4）`;
     spinButton.disabled = false;
     resetEffects();
-  }, 1180);
+  }, 3400);
 }
 
 function addDish(rawValue) {
