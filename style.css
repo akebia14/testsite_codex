@@ -324,26 +324,6 @@ h2 {
   font-size: 0.82rem;
 }
 
-.dish-form {
-  display: flex;
-  gap: 0.45rem;
-}
-
-.dish-form input {
-  flex: 1;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  background: rgba(8, 10, 24, 0.75);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 0.62rem 0.7rem;
-  outline: none;
-}
-
-.dish-form input:focus {
-  border-color: rgba(73, 215, 255, 0.82);
-  box-shadow: 0 0 0 3px rgba(73, 215, 255, 0.2);
-}
-
 .ghost {
   border: 1px solid rgba(255, 255, 255, 0.34);
   color: var(--text);
@@ -358,17 +338,27 @@ h2 {
   margin: 0.85rem 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 0.5rem;
 }
 
 .dish-item {
-  padding: 0.52rem 0.6rem;
+  padding: 0.62rem 0.7rem;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  text-align: center;
   font-size: 0.92rem;
+  display: grid;
+  gap: 0.16rem;
+}
+
+.dish-item__name {
+  font-weight: 700;
+}
+
+.dish-item__meta {
+  color: var(--muted);
+  font-size: 0.8rem;
 }
 
 .result-popup {

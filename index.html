@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>晩ごはんガチャ | DINNER IMPACT</title>
+  <title>スタバ商品ガチャ | COFFEE IMPACT</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,31 +13,25 @@
   <main class="app">
     <header class="hero">
       <p class="eyebrow">TONIGHT'S DESTINY</p>
-      <h1>晩ごはんガチャ</h1>
-      <p class="lead">ボタンひとつで、今夜のメニューを運命決定。</p>
+      <h1>スタバ商品ガチャ</h1>
+      <p class="lead">ボタンひとつで、今日の一杯を運命決定。</p>
     </header>
 
     <section class="gacha-panel" aria-label="ガチャ結果">
       <p class="label">RESULT</p>
 
       <div id="result" class="result" aria-live="polite">スタートを押してね</div>
-      <p id="subResult" class="sub-result">迷った時間を、食べる時間に変えよう。</p>
+      <p id="subResult" class="sub-result">迷った時間を、カフェ時間に変えよう。</p>
       <button id="spinButton" class="spin-button" type="button">ガチャを引く</button>
     </section>
 
-    <section class="list-panel" aria-label="候補メニュー">
+    <section class="list-panel" aria-label="候補商品">
       <div class="list-header">
-        <h2>候補メニュー</h2>
+        <h2>候補商品リスト</h2>
         <button id="resetButton" class="ghost" type="button">初期メニューに戻す</button>
       </div>
-      <p class="list-note">追加した候補もガチャ対象になります。</p>
-
-      <form id="dishForm" class="dish-form">
-        <input id="dishInput" type="text" maxlength="20" placeholder="例: チキン南蛮" aria-label="メニュー名" />
-        <button type="submit" class="ghost">追加</button>
-      </form>
-
-      <ul id="dishList" class="dish-list"></ul>
+      <p class="list-note">商品名・サイズ・料金を参照して抽選します。</p>
+      <ul id="dishList" class="dish-list" aria-live="polite"></ul>
     </section>
   </main>
 
@@ -57,8 +51,12 @@
           <dd id="popupRank">-</dd>
         </div>
         <div>
-          <dt>名前</dt>
+          <dt>商品名</dt>
           <dd id="popupDish">-</dd>
+        </div>
+        <div>
+          <dt>サイズ / 料金</dt>
+          <dd id="popupSizePrice">-</dd>
         </div>
         <div>
           <dt>画像(仮置き)</dt>
